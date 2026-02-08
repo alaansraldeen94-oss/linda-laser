@@ -1,99 +1,137 @@
-"use client";
 import Link from "next/link";
-import Image from "next/image";
-import { useEffect, useState } from "react";
 
-export default function Home() {
-
-  const [isLogged,setIsLogged] = useState(false);
-
-  useEffect(()=>{
-    const login = localStorage.getItem("isLoggedIn");
-    if(login) setIsLogged(true);
-  },[]);
-
-  function logout(){
-    localStorage.removeItem("isLoggedIn");
-    window.location.href="/login";
-  }
-
+export default function HomePage() {
   return (
-    <div style={container}>
-      <div style={card}>
+    <main style={{fontFamily:"sans-serif"}}>
 
-        <Image src="/logo.png" width={180} height={180} alt="logo" />
-        <h1 style={title}>Linda Laser</h1>
+      {/* HERO SECTION */}
+      <section style={{
+        background:"#ffe4ef",
+        padding:"80px 20px",
+        textAlign:"center"
+      }}>
+        <h1 style={{fontSize:"48px", marginBottom:20}}>
+          Linda Laser Clinic ✨
+        </h1>
 
-        <Link href="/booking">
-          <button style={button}>📅 קביעת תור חדש</button>
-        </Link>
+        <p style={{fontSize:"20px", marginBottom:30}}>
+          إزالة الشعر بالليزر بأحدث الأجهزة وبأفضل النتائج
+        </p>
 
-        <Link href="/clients">
-          <button style={button}>👥 רשימת לקוחות</button>
-        </Link>
-
-        <Link href="/dashboard">
-          <button style={button}>💰 דשבורד העסק</button>
-        </Link>
-
-        {/* يظهر فقط اذا المستخدم مش داخل */}
-        {!isLogged && (
-          <Link href="/login">
-            <button style={loginBtn}>🔐 כניסה למערכת</button>
+        <div style={{display:"flex", gap:20, justifyContent:"center"}}>
+          
+          {/* زر الحجز */}
+          <Link href="/appointments">
+            <button style={{
+              padding:"15px 30px",
+              fontSize:"18px",
+              background:"#ff4da6",
+              color:"white",
+              border:"none",
+              borderRadius:10,
+              cursor:"pointer"
+            }}>
+              احجزي موعد الآن
+            </button>
           </Link>
-        )}
 
-        {/* يظهر فقط اذا المستخدم داخل */}
-        {isLogged && (
-          <button style={logoutBtn} onClick={logout}>
-            🚪 התנתקות
+          {/* زر واتساب */}
+          <a
+            href="https://wa.me/972528927057"
+            target="_blank"
+          >
+            <button style={{
+              padding:"15px 30px",
+              fontSize:"18px",
+              background:"#25D366",
+              color:"white",
+
+              border:"none",
+              borderRadius:10,
+              cursor:"pointer"
+            }}>
+              واتساب مباشر
+            </button>
+          </a>
+
+        </div>
+      </section>
+
+
+      {/* الخدمات */}
+      <section style={{padding:"60px 20px", textAlign:"center"}}>
+        <h2 style={{fontSize:32, marginBottom:40}}>الخدمات</h2>
+
+        <div style={{
+          display:"flex",
+          justifyContent:"center",
+          gap:30,
+          flexWrap:"wrap"
+        }}>
+
+          {[
+            "ليزر جسم كامل",
+            "ليزر وجه",
+            "ليزر مناطق صغيرة",
+            "جلسات عروض وبكجات"
+          ].map(service => (
+            <div key={service} style={{
+              width:250,
+              padding:20,
+              borderRadius:15,
+              boxShadow:"0 0 15px rgba(0,0,0,0.1)"
+            }}>
+              <h3>{service}</h3>
+            </div>
+          ))}
+
+        </div>
+      </section>
+
+
+      {/* لماذا نحن */}
+      <section style={{
+        background:"#fafafa",
+        padding:"60px 20px",
+        textAlign:"center"
+      }}>
+        <h2 style={{fontSize:32, marginBottom:30}}>
+          لماذا Linda Laser ؟
+        </h2>
+
+        <p style={{fontSize:18}}>
+          ✔ أجهزة حديثة  
+          ✔ نتائج سريعة وآمنة  
+          ✔ أسعار منافسة  
+          ✔ اهتمام كامل بكل زبونة
+        </p>
+      </section>
+
+
+      {/* CTA اخر الصفحة */}
+      <section style={{
+        padding:"70px 20px",
+        textAlign:"center"
+      }}>
+        <h2 style={{fontSize:32, marginBottom:20}}>
+          جاهزة تبدأي رحلتك معنا؟ 💖
+        </h2>
+
+        <Link href="/appointments">
+          <button style={{
+            padding:"18px 40px",
+            fontSize:"20px",
+            background:"#ff4da6",
+            color:"white",
+            border:"none",
+            borderRadius:12,
+            cursor:"pointer"
+          }}>
+            احجزي موعدك الآن
           </button>
-        )}
+        </Link>
+      </section>
 
-      </div>
-    </div>
+    </main>
   );
 }
-
-const container:any = {
-  minHeight:"100vh",
-  display:"flex",
-  justifyContent:"center",
-  alignItems:"center",
-  background:"linear-gradient(135deg,#0f0f0f,#1a1a1a)"
-};
-
-const card:any = {
-  background:"#fff",
-  padding:40,
-  borderRadius:20,
-  textAlign:"center",
-  width:350
-};
-
-const title:any = {
-  color:"#e91e63",
-  marginBottom:10
-};
-
-const button:any = {
-  width:"100%",
-  padding:15,
-  marginTop:15,
-  borderRadius:12,
-  border:"none",
-  background:"linear-gradient(45deg,#ff2e78,#ff6aa2)",
-  color:"#fff",
-  fontSize:18,
-  cursor:"pointer"
-};
-
-const loginBtn:any = {
-  ...button,
-  background:"#666"
-};
-
-const logoutBtn:any = {
-  ...button,
-  background:"#000"
-};
